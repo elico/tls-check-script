@@ -40,12 +40,16 @@ $delay = 1
 
 def getOpensslCiphers()
   res = {}
-  cmd = "openssl ciphers 'ALL:eNULL'" # All avaliable by OpenSSL and OS
-  cmd = "openssl ciphers 'ECDHE+AES:@STRENGTH:+AES256'" # Strong
+  cihpers_filter = "ALL:eNULL"
+  cmd = "openssl ciphers '#{cihpers_filter}'" # All avaliable by OpenSSL and OS
+
+  cihpers_filter = "ECDHE+AES:@STRENGTH:+AES256" # Strong
+  cmd = "openssl ciphers '#{cihpers_filter}'" # Customised HIGH
 
   cmd = "openssl ciphers" # OpenSSL and OS Defaults
 
-  cmd = "openssl ciphers 'HIGH:MEDIUM:!RC4:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS'" # Customised HIGH
+  cihpers_filter = "HIGH:MEDIUM:!RC4:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS"
+  cmd = "openssl ciphers '#{cihpers_filter}'" # Customised HIGH
 
   stdout, stderr, status = ExecSimple.run(cmd)
   res["stdout"] = stdout
